@@ -1,0 +1,24 @@
+<section id="movielist">
+  <div *ngFor="let movie of movies$ | async">
+    <app-movie-item [movie]=movie></app-movie-item>
+  </div>
+</section>
+
+<form class="add-form" #addMovieForm="ngForm" (ngSubmit)="addMovie(addMovieForm.form);">
+  <span>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" ngModel #title="ngModel" required>
+  </span>
+  <span>
+    <label for="rating">Rating:</label>
+    <select id="rating" name="rating" ngModel #rating="ngModel" required>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+    {{addMovie.rating}}
+  </span>
+  <button type="submit" [disabled]="!addMovieForm.valid">Add</button>
+</form>
