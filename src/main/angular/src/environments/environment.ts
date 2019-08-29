@@ -4,8 +4,6 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'https://morter-test.azurewebsites.net/'
-  // serverUrl: 'http://localhost:8080/'
 };
 
 /*
