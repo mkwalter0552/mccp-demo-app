@@ -7,19 +7,17 @@ provider "google" {
 
 # create a database server running MySQL 5.7
 resource "google_sql_database_instance" "mysql" {
-  name = "mysql-5-7"
+  # name = "mysql-5-7"
   database_version = "MYSQL_5_7"
 
   settings {
     # run on a small, shared-core machine for demo purposes
     tier = "db-f1-micro"
     ip_configuration {
-        # authorized_networks: [
-        #   {
-        #     name ="all-open",
-        #     value = "0.0.0.0/0"
-        #   }
-        # ],
+        authorized_networks {
+            name ="all-open"
+            value = "0.0.0.0/0"
+        }
         ipv4_enabled = true
         require_ssl = false
       }
