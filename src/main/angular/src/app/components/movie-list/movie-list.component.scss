@@ -1,0 +1,24 @@
+.add-form {
+    margin-top: 2vh;
+    display: flex;
+    justify-content: flex-start;
+    width: 70vw;
+}
+
+span {
+    flex: 1
+    // flex-shrink: 1
+}
+
+#title {
+    width: 75% 
+}
+
+input, select, button {
+    font-size: 0.8em;
+    font-family: 'Tahoma', Geneva, sans-serif;
+}
+
+label {
+    padding-right: 0.5vw;
+}
