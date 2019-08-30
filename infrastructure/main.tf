@@ -1,6 +1,6 @@
 provider "google" {
   credentials = "${file("~/.config/gcloud/legacy_credentials/emorter@mkwalter.com/adc.json")}"
-  project     = "poc-app-mccp"
+  project     = "${var.google_project_id}"
   region      = "us-central1"
   zone = "us-central1-a"
 }
@@ -37,4 +37,10 @@ resource "google_sql_user" "user" {
 resource "google_sql_database" "database" {
   name      = "movies"
   instance = "${google_sql_database_instance.mysql.name}"
+}
+
+# create an App Engine
+resource "google_app_engine_application" "app-engine" {
+  project     = "${var.google_project_id}"
+  location_id = "us-central"
 }
