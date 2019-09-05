@@ -5,6 +5,14 @@ provider "google" {
   zone = "us-central1-a"
 }
 
+# store Terraform state in a remote bucket
+terraform {
+  backend "gcs" {
+    bucket  = "poc-app-mccp-tf-state"
+    prefix  = "terraform/state"
+  }
+}
+
 # create a database server running MySQL 5.7
 resource "google_sql_database_instance" "mysql" {
   # name = "mysql-5-7"
