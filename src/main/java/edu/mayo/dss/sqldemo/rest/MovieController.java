@@ -2,6 +2,8 @@ package edu.mayo.dss.sqldemo.rest;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ import edu.mayo.dss.sqldemo.MovieRepository;
 @CrossOrigin
 @RequestMapping(path = "/movie")
 public class MovieController {
+	private static final Logger LOG = LoggerFactory.getLogger(MovieController.class);
+	
 	@Autowired
 	private MovieRepository movieRepository;
 
@@ -35,26 +39,31 @@ public class MovieController {
 	
 	@PostMapping
 	public @ResponseBody Movie addMovie(@RequestBody Movie movie) {
+		LOG.debug("Adding new movie [{}]", movie);
 		return movieRepository.save(movie);
 	}
 	
 	@PutMapping
 	public @ResponseBody Movie updateMovie(@RequestBody Movie movie) {
+		LOG.debug("Updating movie [{}]", movie);
 		if(movieRepository.existsById(movie.getId())) {
 			return movieRepository.save(movie);
 		} else {
+			LOG.error("Could not find movie [{}]", movie);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
 		}
 	}
 	
 	@DeleteMapping
 	public @ResponseBody Movie deleteMovie(@RequestParam Long id) {
+		LOG.debug("Deleting movie with ID [{}]", id);
 		Optional<Movie> movieOptional = movieRepository.findById(id);
 		if(movieOptional.isPresent()){
 			Movie movie = movieOptional.get();
 			movieRepository.delete(movie);
 			return movie;
 		}else {
+			LOG.error("Could not find movie with ID [{}]", id);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
 		}
 	}
