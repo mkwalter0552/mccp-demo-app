@@ -5,5 +5,5 @@ variable "db_user_password" {
 
 variable "google_project_id" {
   description = "The ID of the GCP projects"
-  default     = "poc-app-mccp"
+  default     = "mccp-dev-test"
 }

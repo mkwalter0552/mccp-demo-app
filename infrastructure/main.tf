@@ -1,16 +1,44 @@
 provider "google" {
-  credentials = "${file("~/.config/gcloud/legacy_credentials/emorter@mkwalter.com/adc.json")}"
   project     = "${var.google_project_id}"
   region      = "us-central1"
   zone = "us-central1-a"
 }
 
-# store Terraform state in a remote bucket
-terraform {
-  backend "gcs" {
-    bucket  = "poc-app-mccp-tf-state"
-    prefix  = "terraform/state"
-  }
+data "google_project" "project" {}
+
+# give build service account additional permissions
+resource "google_project_iam_member" "builder_iam_admin" {
+  project = "${var.google_project_id}"
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "builder_sql_editor" {
+  project = "${var.google_project_id}"
+  role    = "roles/cloudsql.editor"
+  member  = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "builder_app_engine" {
+  project = "${var.google_project_id}"
+  role    = "roles/appengine.appAdmin"
+  member  = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
+}
+
+# serviceusage.googleapis.com needs to be enabled
+resource "google_project_services" "enable_apis" {
+  project = "${var.google_project_id}"
+  services   = [
+      "cloudresourcemanager.googleapis.com",
+      "serviceusage.googleapis.com", 
+      "appengine.googleapis.com", 
+      "sqladmin.googleapis.com", 
+      "cloudbuild.googleapis.com",
+      "containerregistry.googleapis.com",
+      "logging.googleapis.com",
+      "pubsub.googleapis.com",
+      "storage-api.googleapis.com"
+  ]
 }
 
 # create a database server running MySQL 5.7

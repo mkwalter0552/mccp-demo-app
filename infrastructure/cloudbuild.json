@@ -1,0 +1,17 @@
+{
+    "steps": [
+    {
+        "name": "gcr.io/mfad-topology/terraform",
+        "args": [
+            "init"
+        ]
+    },
+    {
+        "name": "gcr.io/mfad-topology/terraform",
+        "args": [
+            "apply",
+            "-auto-approve"
+        ]
+    }
+    ]
+}
