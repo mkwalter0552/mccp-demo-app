@@ -1,6 +1,11 @@
 pipeline {
   agent any
   stages {
+    stage('Init') {
+      steps {
+        echo "Credentails:${GOOGLE_SERVICE_ACCOUNT_KEY}";
+      }
+    }
     stage('Build') {
       steps {
         sh './mvnw -q clean package'
@@ -20,5 +25,6 @@ pipeline {
 
   environment {
     GOOGLE_PROJECT_ID = 'mccp-dev-test'
+    GOOGLE_SERVICE_ACCOUNT_KEY = credentials('mccp-dev-test-jenkins');
   }
 }
