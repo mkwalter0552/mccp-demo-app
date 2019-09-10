@@ -47,6 +47,7 @@ resource "google_sql_database_instance" "mysql" {
   database_version = "MYSQL_5_7"
 
   settings {
+    user_labels = {"color":"plaid"}
     # run on a small, shared-core machine for demo purposes
     tier = "db-f1-micro"
     ip_configuration {
@@ -56,7 +57,7 @@ resource "google_sql_database_instance" "mysql" {
         }
         ipv4_enabled = true
         require_ssl = false
-      }
+    }
   }
 }
 
