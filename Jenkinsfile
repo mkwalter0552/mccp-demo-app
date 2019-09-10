@@ -6,6 +6,11 @@ pipeline {
         sh './mvnw -q clean package'
       }
     }
+    stage('Deploy') {
+      steps {
+        sh './mvnw appengine:deploy'
+      }
+    }
   }
   post {
     always {
