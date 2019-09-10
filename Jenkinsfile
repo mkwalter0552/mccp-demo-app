@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh './mvnw appengine:deploy'
+        sh './mvnw appengine:deploy-Dapp.deploy.project=mccp-dev-test'
       }
     }
   }
