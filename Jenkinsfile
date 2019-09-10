@@ -7,6 +7,12 @@ pipeline {
       }
     }
   }
+  post {
+    always {
+      junit 'target/surefire-reports/**/*.xml'
+    }
+  }
+
   environment {
     GOOGLE_PROJECT_ID = 'mccp-dev-test'
   }
