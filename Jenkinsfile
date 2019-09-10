@@ -4,6 +4,11 @@ pipeline {
     stage('Init') {
       steps {
         echo "Credentails:${GOOGLE_SERVICE_ACCOUNT_KEY}";
+        sh '''
+          gcloud config set project ${GOOGLE_PROJECT_ID};
+          gcloud components install app-engine-java;
+          gcloud auth activate-service-account --key-file ${GOOGLE_SERVICE_ACCOUNT_KEY};
+        '''
       }
     }
     stage('Build') {
@@ -13,7 +18,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh './mvnw appengine:deploy -Dapp.deploy.project=mccp-dev-test'
+        sh './mvnw appengine:deploy'
       }
     }
   }
