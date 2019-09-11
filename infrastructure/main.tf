@@ -37,7 +37,9 @@ resource "google_project_services" "enable_apis" {
       "containerregistry.googleapis.com",
       "logging.googleapis.com",
       "pubsub.googleapis.com",
-      "storage-api.googleapis.com"
+      "storage-api.googleapis.com",
+      "oslogin.googleapis.com",
+      "compute.googleapis.com"
   ]
 }
 
