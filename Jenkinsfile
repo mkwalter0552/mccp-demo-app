@@ -1,5 +1,5 @@
-# Install gcloud app-engine-java component
-# sudo apt-get install google-cloud-sdk-app-engine-java
+// Install gcloud app-engine-java component on build node
+// sudo apt-get install google-cloud-sdk-app-engine-java
 pipeline {
   agent any
   stages {
