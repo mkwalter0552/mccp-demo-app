@@ -26,6 +26,8 @@ import edu.mayo.dss.sqldemo.MovieRepository;
 public class MovieController {
 	@Autowired
 	private MovieRepository movieRepository;
+	
+	private String unusedVariable;
 
 	
 	@GetMapping
