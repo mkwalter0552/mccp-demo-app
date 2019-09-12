@@ -5,7 +5,7 @@ pipeline {
   stages {
     stage('Init') {
       steps {
-        echo "Credentails:${GOOGLE_SERVICE_ACCOUNT_KEY}";
+//        echo "Credentails:${GOOGLE_SERVICE_ACCOUNT_KEY}";
         sh '''
           gcloud auth activate-service-account --key-file ${GOOGLE_SERVICE_ACCOUNT_KEY};
           gcloud config set project ${GOOGLE_PROJECT_ID};
@@ -15,11 +15,11 @@ pipeline {
     stage('Test') {
       steps {
         sh './mvnw test'
-        sh './mvnw spotbugs:check'
+//        sh './mvnw spotbugs:check'
         // gather the JUnit and Jacoco reports
         junit 'target/surefire-reports/**/*.xml'
         jacoco classPattern: 'target/classes', execPattern: 'target/**.exec'
-        findBugs pattern: '**/spotbugsXml.xml'
+//        findBugs pattern: '**/spotbugsXml.xml'
       }
     }
     stage('Build') {
