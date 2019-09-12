@@ -18,7 +18,7 @@ pipeline {
         // gather the JUnit and Jacoco reports
         junit 'target/surefire-reports/**/*.xml'
         jacoco classPattern: 'target/classes', execPattern: 'target/**.exec'
-        findbugs pattern: '**/spotbugsXml.xml'
+        findugs pattern: '**/spotbugsXml.xml'
       }
     }
     stage('Build') {
