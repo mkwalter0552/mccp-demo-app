@@ -31,11 +31,6 @@ pipeline {
       }
     }
   }
-  post {
-    always {
-
-    }
-  }
 
   environment {
     GOOGLE_PROJECT_ID = 'mccp-dev-test'
