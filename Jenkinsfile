@@ -12,19 +12,25 @@ pipeline {
         '''
       }
     }
+    stage('Test') {
+      steps {
+        sh './mvnw -q test'
+      }
+    }
     stage('Build') {
       steps {
-        sh './mvnw -q clean package'
+        sh './mvnw -q clean package -Dmaven.test.skip=true'
       }
     }
     stage('Deploy') {
       steps {
-        sh './mvnw appengine:deploy'
+        sh './mvnw -q appengine:deploy -Dmaven.test.skip=true'
       }
     }
   }
   post {
     always {
+      // gather the JUnit and Jacoco reports
       junit 'target/surefire-reports/**/*.xml'
       jacoco classPattern: 'target/classes', execPattern: 'target/**.exec'
     }
