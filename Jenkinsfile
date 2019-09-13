@@ -15,7 +15,7 @@ pipeline {
     stage('Test') {
       steps {
         sh './mvnw test'
-        sh './mvnw spotbugs:check'
+//        sh './mvnw spotbugs:check'
         // gather the JUnit and Jacoco reports
         junit 'target/surefire-reports/**/*.xml'
         jacoco classPattern: 'target/classes', execPattern: 'target/**.exec'
